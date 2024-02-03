@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            font-size: 18px;
+        }
+
+        #quiz-container {
+            max-width: 600px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div id="quiz-container">
+    <h2 id="quiz-question">Question 1: What is the capital of Japan?</h2>
+    <input type="text" id="user-answer" placeholder="Enter your answer">
+    <button onclick="checkAnswer()">Submit Answer</button>
+    <p id="result-message"></p>
+</div>
+
+<script>
+    var questions = [
+        "What is the capital of Japan?",
+        "Which planet is known as the Red Planet?",
+        "How many continents are there in the world?",
+        "What is the largest mammal in the world?",
+        "Who wrote 'Romeo and Juliet'?",
+    ];
+
+    var answers = [
+        "Tokyo",
+        "Mars",
+        "7",
+        "Blue Whale",
+        "William Shakespeare",
+    ];
+
+    var currentQuestionIndex = 0;
+
+    function checkAnswer() {
+        // Get user's answer from the input field
+        var userAnswer = document.getElementById("user-answer").value.trim();
+
+        // Check if the user's answer is correct and display a message
+        var resultMessage = document.getElementById("result-message");
+        if (userAnswer.toLowerCase() === answers[currentQuestionIndex].toLowerCase()) {
+            resultMessage.textContent = "Correct! The answer is " + answers[currentQuestionIndex] + ".";
+            resultMessage.style.color = "green";
+        } else {
+            resultMessage.textContent = "Incorrect. The correct answer is " + answers[currentQuestionIndex] + ".";
+            resultMessage.style.color = "red";
+        }
+
+        // Move to the next question or finish the quiz
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            // Display the next question
+            document.getElementById("quiz-question").textContent = "Question " + (currentQuestionIndex + 1) + ": " + questions[currentQuestionIndex];
+            document.getElementById("user-answer").value = "";
+        } else {
+            // End of the quiz
+            document.getElementById("quiz-question").textContent = "Quiz completed!";
+            document.getElementById("user-answer").style.display = "none";
+            document.getElementById("result-message").textContent = "Thank you for participating!";
+        }
+    }
+</script>
+
+</body>
+</html>
